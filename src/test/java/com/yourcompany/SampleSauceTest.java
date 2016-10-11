@@ -95,7 +95,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
         capabilities.setCapability("name", jobName);
 
         webDriver.set(new AndroidDriver<WebElement>(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
+                new URL("https://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:443/wd/hub"),
                 capabilities));
         String id = ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
         sessionId.set(id);
@@ -114,7 +114,7 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     @Test(dataProvider = "hardCodedBrowsers")
     public void clickLinkTest(String platformName, String deviceName, String platformVersion, String browserName, String deviceOrientation, Method method) throws Exception {
     	AndroidDriver<WebElement> driver = createDriver(platformName, deviceName, platformVersion, browserName, deviceOrientation, method.getName());
-        
+
         driver.get("https://saucelabs.com/test/guinea-pig");
         driver.findElementById("i am a link").click();
         String title = driver.getTitle();
@@ -125,15 +125,15 @@ public class SampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
     @Test(dataProvider = "hardCodedBrowsers")
     public void clickLinkTest2(String platformName, String deviceName, String platformVersion, String browserName, String deviceOrientation, Method method) throws Exception {
     	AndroidDriver<WebElement> driver = createDriver(platformName, deviceName, platformVersion, browserName, deviceOrientation, method.getName());
-        
+
         driver.get("https://saucelabs.com/test/guinea-pig");
         driver.findElementById("i am a link").click();
         String title = driver.getTitle();
         assertEquals(title, "I am another page title - Sauce Labs");
         driver.quit();
     }
-    
-    
+
+
     /**
      * @return the {@link WebDriver} for the current thread
      */
